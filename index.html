@@ -54,6 +54,20 @@
              transition: background-color 0.3s ease;
          }
 
+         .name-button{
+             display: inline-block;
+             background-color: #5cb85c;
+             border: none;
+             color: #fff;
+             padding: 12px 24px;
+             text-align: center;
+             text-decoration: none;
+             font-size: 16px;
+             cursor: pointer;
+             border-radius: 4px;
+             transition: background-color 0.3s ease;
+         }
+
         /* 버튼 호버 스타일 */
         .button:hover {
             background-color: #449d44;
@@ -84,7 +98,7 @@
 
     <div class="com">
         <div class="row">
-            <div style="background-color: #5cb85c; width: 200px; height: 70px; border-radius: 10px; color: #fff; text-align: center; line-height: 70px; font-weight: bold;">교탁</div>
+            <div style="background-color: #5cb85c; width: 200px; height: 70px; border-radius: 10px; color: #fff; text-align: center; line-height: 70px; font-weight: bold;" id="desk">교탁</div>
         </div>
 
         <br>
@@ -118,6 +132,7 @@
                 <div class="seat" id="3-3"></div>
                 <div class="seat" id="3-4"></div>
                 <div class="seat" id="3-5"></div>
+                <div class="seat" id="3-6"></div>
             </div>
             <div class="col">
                 <div class="seat" id="4-1"></div>
@@ -125,7 +140,6 @@
                 <div class="seat" id="4-3"></div>
                 <div class="seat" id="4-4"></div>
                 <div class="seat" id="4-5"></div>
-                <div class="seat" id="4-6"></div>
             </div>
             <div class="col">
                 <div class="seat" id="5-1"></div>
@@ -139,45 +153,134 @@
 </div>
 <hr>
 
+
+
 <div>
-    <input class="input-box" type="text" placeholder="입력 상자">
-    <button class="button">버튼</button>
+    <div class="buttons">
+        <button class="name-button">김영수</button>
+        <button class="name-button">이민지</button>
+        <button class="name-button">박준호</button>
+        <button class="name-button">최현우</button>
+        <button class="name-button">정지은</button>
+    </div>
+    <br>
+        <div class="buttons">
+        <button class="name-button">강동호</button>
+        <button class="name-button">임은지</button>
+        <button class="name-button">장성호</button>
+        <button class="name-button">서영호</button>
+        <button class="name-button">윤승민</button>
+        </div><br>
+    <div class="buttons">
+        <button class="name-button">홍지영</button>
+        <button class="name-button">한상훈</button>
+        <button class="name-button">배은서</button>
+        <button class="name-button">송창식</button>
+        <button class="name-button">신은주</button>
+    </div><br>
+    <div class="buttons">
+        <button class="name-button">조성민</button>
+        <button class="name-button">유진우</button>
+        <button class="name-button">황선민</button>
+        <button class="name-button">장현서</button>
+        <button class="name-button">이윤주</button>
+    </div><br>
+    <div class="buttons">
+        <button class="name-button">양철수</button>
+        <button class="name-button">전영호</button>
+        <button class="name-button">김미영</button>
+        <button class="name-button">한승훈</button>
+        <button class="name-button">서은영</button>
+</div><br>
+        <button class="name-button">고민지</button>
+        <button class="name-button">최승우</button>
+    </div>
+
 </div>
 
 <script>
 
-    var password;
-    while (true) {
-        password = prompt("비밀번호를 입력하세요.");
+    // seat 요소들을 가져옵니다.
+    const seats = document.querySelectorAll('.seat');
 
-        if (password === "1234") {
-            break;
-        }
-    }
+    // 버튼 요소들을 가져와서 클릭 이벤트 리스너를 등록합니다.
+    const buttons = document.querySelectorAll('.name-button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            // 선택된 seat 요소를 저장할 변수를 초기화합니다.
+            let selectedSeat = null;
 
-    document.querySelector('.input-box').value = '김영수,이민지,박준호,최현우,정지은,강동호,임은지,장성호,서영호,윤승민,홍지영,한상훈,배은서,송창식,신은주,조성민,유진우,황선민,장현서,이윤주,양철수,전영호,김미영,한승훈,서은영,고민지,최승우\n';
 
+            // desk 요소를 가져와서 "교탁"인지 "교  탁"인지 체크합니다.
+            const desk = document.querySelector('#desk');
+            const deskText = desk.textContent.trim();
+            if (deskText == '교탁') {
+                // seats 배열에서 선택되지 않은 seat 요소들을 필터링합니다.
+                const unselectedSeats = Array.from(seats).filter((seat) => {
+                    return seat.style.backgroundColor !== 'orange';
+                });
 
-    // 버튼 클릭 이벤트 핸들러
-    document.querySelector('.button').addEventListener('click', function() {
-        alert('자리 배치를 시작합니다.');
-        // 입력 상자에서 입력한 값을 가져온다.
-        var namesStr = document.querySelector('.input-box').value;
-        // 이름을 콤마로 구분해서 배열로 변환한다.
-        var names = namesStr.split(',');
+                // unselectedSeats 배열이 비어있는 경우, selectedSeat에 null 값을 할당합니다.
+                if (unselectedSeats.length === 0) {
+                    selectedSeat = null;
+                } else {
+                    // unselectedSeats 배열에서 랜덤 인덱스를 구합니다.
+                    const randomIndex = Math.floor(Math.random() * unselectedSeats.length);
 
-        // div seat 엘리먼트를 모두 가져온다.
-        var seats = document.querySelectorAll('.seat');
-        // 각 seat에 랜덤으로 이름을 할당한다.
-        for (var i = 0; i < seats.length; i++) {
-            var randomIndex = Math.floor(Math.random() * names.length); // 랜덤 인덱스 생성
-            var name = names[randomIndex].trim(); // 랜덤 이름 가져오기
-            seats[i].textContent = name; // seat 엘리먼트에 이름 할당
-            names.splice(randomIndex, 1); // 이미 할당한 이름은 배열에서 제거
-            if (names.length === 0) { // 이름이 모두 할당되면 종료
-                break;
+                    // 랜덤으로 선택된 seat 요소를 가져옵니다.
+                    selectedSeat = unselectedSeats[randomIndex];
+                }
+
+            }else{
+                // 선택된 버튼이 '박준호'일 때, 2-1 좌석에 고정시킵니다.
+                if (button.textContent === '박준호') {
+                    selectedSeat = document.querySelector('#\\32-1');
+                } else {
+                    // seats 배열에서 선택되지 않은 seat 요소들을 필터링합니다.
+                    const unselectedSeats = Array.from(seats).filter((seat) => {
+                        return seat.style.backgroundColor !== 'orange';
+                    });
+
+                    // unselectedSeats 배열이 비어있는 경우, selectedSeat에 null 값을 할당합니다.
+                    if (unselectedSeats.length === 0) {
+                        selectedSeat = null;
+                    } else {
+                        // unselectedSeats 배열에서 랜덤 인덱스를 구합니다.
+                        const randomIndex = Math.floor(Math.random() * unselectedSeats.length);
+
+                        // 랜덤으로 선택된 seat 요소를 가져옵니다.
+                        selectedSeat = unselectedSeats[randomIndex];
+                    }
+                }
             }
+
+
+
+            // 선택된 seat 요소가 있는 경우에만, 배경색과 텍스트를 변경합니다.
+            if (selectedSeat !== null) {
+                selectedSeat.style.backgroundColor = 'orange';
+                selectedSeat.textContent = button.textContent;
+
+                // 클릭한 버튼의 색상을 회색으로 변경합니다.
+                button.style.backgroundColor = 'gray';
+
+                // 클릭한 버튼을 비활성화합니다.
+                button.disabled = true;
+            }
+        });
+    });
+
+/* 교탁 이벤트 시작 */
+    desk.addEventListener('click', () => {
+        const desk = document.querySelector('#desk');
+        const deskText = desk.textContent.trim();
+        if (deskText == '교탁') {
+            desk.textContent = '교 탁';
+        }else{
+            desk.textContent = '교탁';
         }
+
+
     });
 
 </script>
