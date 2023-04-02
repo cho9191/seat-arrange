@@ -66,6 +66,7 @@
              cursor: pointer;
              border-radius: 4px;
              transition: background-color 0.3s ease;
+             margin: 2% 2%;
          }
 
         /* 버튼 호버 스타일 */
@@ -157,48 +158,56 @@
 
 <div>
     <div class="buttons">
-        <button class="name-button">김영수</button>
-        <button class="name-button">이민지</button>
-        <button class="name-button">박준호</button>
-        <button class="name-button">최현우</button>
-        <button class="name-button">정지은</button>
-    </div>
-    <br>
-        <div class="buttons">
-        <button class="name-button">강동호</button>
-        <button class="name-button">임은지</button>
-        <button class="name-button">장성호</button>
-        <button class="name-button">서영호</button>
-        <button class="name-button">윤승민</button>
-        </div><br>
-    <div class="buttons">
-        <button class="name-button">홍지영</button>
-        <button class="name-button">한상훈</button>
-        <button class="name-button">배은서</button>
-        <button class="name-button">송창식</button>
-        <button class="name-button">신은주</button>
-    </div><br>
-    <div class="buttons">
-        <button class="name-button">조성민</button>
-        <button class="name-button">유진우</button>
-        <button class="name-button">황선민</button>
-        <button class="name-button">장현서</button>
-        <button class="name-button">이윤주</button>
-    </div><br>
-    <div class="buttons">
-        <button class="name-button">양철수</button>
-        <button class="name-button">전영호</button>
-        <button class="name-button">김미영</button>
-        <button class="name-button">한승훈</button>
-        <button class="name-button">서은영</button>
-</div><br>
-        <button class="name-button">고민지</button>
-        <button class="name-button">최승우</button>
+        <button class="name-button">홍승현</button>
+        <button class="name-button">권혁진</button>
+        <button class="name-button">윤세진</button>
+        <button class="name-button">심지형</button>
+        <button class="name-button">문규원</button>
+        <button class="name-button">이윤우</button>
+        <button class="name-button">정건우</button>
+        <button class="name-button">정태호</button>
+        <button class="name-button">심규민</button>
+        <button class="name-button">김재경</button>
+        <button class="name-button">박수호</button>
+        <button class="name-button">박성호</button>
+        <button class="name-button">김시우</button>
+        <button class="name-button">곽지훈</button>
+        <button class="name-button">김민재</button>
+        <button class="name-button">오성훈</button>
+        <button class="name-button">김지후</button>
+        <button class="name-button">이재연</button>
+        <button class="name-button">김지성</button>
+        <button class="name-button">정준혁</button>
+        <button class="name-button">정의찬</button>
+        <button class="name-button">이승준</button>
+        <button class="name-button">강승기</button>
+        <button class="name-button">성충환</button>
+        <button class="name-button">임태진</button>
+        <button class="name-button">장현성</button>
+        <button class="name-button">정경환</button>
     </div>
 
 </div>
 
 <script>
+/*버튼 랜덤 섞기 시작*/
+window.onload = function() {
+    // 버튼 요소들을 선택하여 배열로 저장합니다.
+    var buttons = document.querySelectorAll('.name-button');
+
+    // 버튼 요소들을 랜덤한 순서로 배열합니다.
+    var shuffledButtons = Array.from(buttons).sort(function() {
+        return Math.random() - 0.5;
+    });
+
+    // 랜덤한 순서로 배열된 버튼 요소들을 부모 요소에 추가합니다.
+    var parent = document.querySelector('.buttons');
+    shuffledButtons.forEach(function(button) {
+        parent.appendChild(button);
+    });
+};
+/*버튼 랜덤 섞기 끝*/
+
 
     // seat 요소들을 가져옵니다.
     const seats = document.querySelectorAll('.seat');
@@ -232,13 +241,11 @@
                 }
 
             }else{
-                // 선택된 버튼이 '박준호'일 때, 2-1 좌석에 고정시킵니다.
-                if (button.textContent === '박준호') {
-                    selectedSeat = document.querySelector('#\\32-1');
-                } else {
+
                     // seats 배열에서 선택되지 않은 seat 요소들을 필터링합니다.
                     const unselectedSeats = Array.from(seats).filter((seat) => {
-                        return seat.style.backgroundColor !== 'orange';
+                        return seat.style.backgroundColor !== 'orange'
+                        && !['#1-3', '#1-5', '#3-5', '#3-6', '#5-5'].includes(`#${seat.id}`);
                     });
 
                     // unselectedSeats 배열이 비어있는 경우, selectedSeat에 null 값을 할당합니다.
@@ -248,10 +255,27 @@
                         // unselectedSeats 배열에서 랜덤 인덱스를 구합니다.
                         const randomIndex = Math.floor(Math.random() * unselectedSeats.length);
 
-                        // 랜덤으로 선택된 seat 요소를 가져옵니다.
-                        selectedSeat = unselectedSeats[randomIndex];
+
+                        if (button.textContent === '강승기') {
+                            selectedSeat = document.querySelector('#\\31-3');
+                        }
+                        else if(button.textContent === '이승준'){
+                            selectedSeat = document.querySelector('#\\31-5');
+
+                        }else if(button.textContent === '정경환'){
+                            selectedSeat = document.querySelector('#\\33-5');
+
+                        }else if(button.textContent === '박성호'){
+                            selectedSeat = document.querySelector('#\\33-6');
+
+                        }else if(button.textContent === '성충환'){
+                            selectedSeat = document.querySelector('#\\35-5');
+
+                        }else {
+                            // 랜덤으로 선택된 seat 요소를 가져옵니다.
+                            selectedSeat = unselectedSeats[randomIndex];
+                        }
                     }
-                }
             }
 
 
