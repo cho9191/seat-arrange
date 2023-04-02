@@ -216,6 +216,9 @@ window.onload = function() {
     const buttons = document.querySelectorAll('.name-button');
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
+
+            alert(button.textContent+" 학생의 자리를 배정합니다.");
+
             // 선택된 seat 요소를 저장할 변수를 초기화합니다.
             let selectedSeat = null;
 
