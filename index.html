@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>자리 배치표</title>
+    <title>자리 배치도</title>
     <style>
         .row {
             display: flex;
             justify-content: space-around;
-            margin: 10px 0;
+            margin: 5px 0;
         }
 
         .col {
             flex-basis: auto;
             background-color: #eee;
             padding: 10px;
-            margin-right: 10px;
+            margin-right: 5px;
             text-align: center;
         }
 
@@ -32,8 +32,8 @@
             border: 1px solid #ccc;
             padding: 5px;
             margin: 5px;
-            width: 7vw;
-            height: 5vw;
+            width: 5vw;
+            height: 2vw;
             text-align: center;
             font-size: 1vw;
             font-weight: bold;
@@ -66,7 +66,7 @@
              cursor: pointer;
              border-radius: 4px;
              transition: background-color 0.3s ease;
-             margin: 2% 2%;
+             margin: 2% 1%;
          }
 
         /* 버튼 호버 스타일 */
@@ -248,8 +248,12 @@ window.onload = function() {
                         && !['#1-3', '#1-5', '#3-5', '#3-6', '#5-5'].includes(`#${seat.id}`);
                     });
 
+                const unselectedSeatsOnlyOrrange = Array.from(seats).filter((seat) => {
+                    return seat.style.backgroundColor !== 'orange';
+                });
+
                     // unselectedSeats 배열이 비어있는 경우, selectedSeat에 null 값을 할당합니다.
-                    if (unselectedSeats.length === 0) {
+                    if (unselectedSeats.length === 0 && unselectedSeatsOnlyOrrange.length === 0) {
                         selectedSeat = null;
                     } else {
                         // unselectedSeats 배열에서 랜덤 인덱스를 구합니다.
